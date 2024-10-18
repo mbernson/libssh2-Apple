@@ -5,24 +5,26 @@ on:
     branches:
       - main
 
+env:
+  LIBSSH2_VERSION: 1.11.0
+
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-15
+
+    env:
+      BUILD_ROOT: /private/tmp/libssh-macos
+      SDK: macosx
+      SDK_VERSION: 15.0
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Download libssh2 source code
         run: |
-          curl -LO https://libssh2.org/download/libssh2-1.11.0.tar.gz
-          tar xzf libssh2-1.11.0.tar.gz -C ./
-          echo "SOURCE_ROOT=$(pwd)" >> "$GITHUB_ENV"
-
-      - name: Set up build environment variables
-        run: |
-          echo "SDK=macosx" >> "$GITHUB_ENV"
-          echo "SDK_VERSION=14.0" >> "$GITHUB_ENV"
-          echo "BUILD_ROOT=/private/tmp/libssh-macos" >> "$GITHUB_ENV"
+          curl -LO https://libssh2.org/download/libssh2-$LIBSSH2_VERSION.tar.gz
+          tar xzf libssh2-$LIBSSH2_VERSION.tar.gz -C ./
+          echo "SOURCE_ROOT=$(pwd)/libssh2-$LIBSSH2_VERSION" >> "$GITHUB_ENV"
 
       - name: Set up build directory
         run: |
