@@ -15,7 +15,7 @@ jobs:
     env:
       BUILD_ROOT: /private/tmp/libssh-macos
       SDK: macosx
-      SDK_VERSION: 15.0
+      DEPLOYMENT_TARGET: 11.0
 
     steps:
       - uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
             -G Xcode \
             -DBUILD_STATIC_LIBS=ON \
             -DCMAKE_OSX_SYSROOT=$(xcrun --sdk $SDK --show-sdk-path) \
-            -DCMAKE_OSX_DEPLOYMENT_TARGET=$SDK_VERSION \
+            -DCMAKE_OSX_DEPLOYMENT_TARGET=$DEPLOYMENT_TARGET \
             -DBUILD_SHARED_LIBS=OFF \
             -DCRYPTO_BACKEND=OpenSSL
 
