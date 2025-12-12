@@ -6,11 +6,11 @@ on:
       - main
 
 env:
-  LIBSSH2_VERSION: 1.11.0
+  LIBSSH2_VERSION: 1.11.1
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-latest
 
     env:
       BUILD_ROOT: /private/tmp/libssh-macos
@@ -18,8 +18,6 @@ jobs:
       DEPLOYMENT_TARGET: 11.0
 
     steps:
-      - uses: actions/checkout@v4
-
       - name: Download libssh2 source code
         run: |
           curl -LO https://libssh2.org/download/libssh2-$LIBSSH2_VERSION.tar.gz
@@ -59,9 +57,9 @@ jobs:
             -library "$BUILD_ROOT/libssh2-macOS.xcarchive/Products/libssh2.a" \
             -headers "$SOURCE_ROOT/include" \
             -output "libssh2.xcframework"
-        
+
       - name: Upload XCFramework artifact
         uses: actions/upload-artifact@v4
         with:
-          name: libssh2
+          name: libssh2.xcframework
           path: libssh2.xcframework
