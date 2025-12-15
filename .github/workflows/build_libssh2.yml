@@ -13,9 +13,7 @@ jobs:
     runs-on: macos-latest
 
     env:
-      BUILD_ROOT: /private/tmp/libssh-macos
-      SDK: macosx
-      DEPLOYMENT_TARGET: 11.0
+      MACOS_DEPLOYMENT_TARGET: 11.0
 
     steps:
       - name: Download libssh2 source code
@@ -24,23 +22,23 @@ jobs:
           tar xzf libssh2-$LIBSSH2_VERSION.tar.gz -C ./
           echo "SOURCE_ROOT=$(pwd)/libssh2-$LIBSSH2_VERSION" >> "$GITHUB_ENV"
 
-      - name: Set up build directory
+      - name: Prepare build directory
         run: |
-          mkdir -p $BUILD_ROOT
+          echo "BUILD_ROOT=$(mktemp -d -t libssh2-macos)" >> "$GITHUB_ENV"
 
       - name: Generate Xcode project
         run: |
           cmake -S "$SOURCE_ROOT" -B "$BUILD_ROOT" \
             -G Xcode \
             -DBUILD_STATIC_LIBS=ON \
-            -DCMAKE_OSX_SYSROOT=$(xcrun --sdk $SDK --show-sdk-path) \
-            -DCMAKE_OSX_DEPLOYMENT_TARGET=$DEPLOYMENT_TARGET \
+            -DCMAKE_OSX_SYSROOT=$(xcrun --sdk macosx --show-sdk-path) \
+            -DCMAKE_OSX_DEPLOYMENT_TARGET=${{ env.MACOS_DEPLOYMENT_TARGET }} \
             -DBUILD_SHARED_LIBS=OFF \
             -DCRYPTO_BACKEND=OpenSSL
 
       - name: Build for macOS
+        working-directory: ${{ env.BUILD_ROOT }}
         run: |
-          cd "$BUILD_ROOT"
           xcodebuild archive \
             -project libssh2.xcodeproj \
             -scheme libssh2_static \
