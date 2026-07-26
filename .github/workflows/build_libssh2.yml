@@ -13,7 +13,7 @@ jobs:
     runs-on: macos-latest
 
     env:
-      MACOS_DEPLOYMENT_TARGET: 11.0
+      MACOS_DEPLOYMENT_TARGET: 15.0
 
     steps:
       - name: Download libssh2 source code
