@@ -16,8 +16,8 @@ let package = Package(
         // Consumers must also link OpenSSL from https://github.com/mbernson/OpenSSL-Apple.
         .binaryTarget(
             name: "libssh2",
-            url: "https://github.com/mbernson/libssh2-Apple/releases/download/0.0.0/libssh2.xcframework.zip",
-            checksum: "0000000000000000000000000000000000000000000000000000000000000000"
+            url: "https://github.com/mbernson/libssh2-Apple/releases/download/1.11.1/libssh2.xcframework.zip",
+            checksum: "110d85c6e2ce1630bcf82b91d2861686c6eb00f735289134e67f78836a53d7d3"
         ),
     ]
 )
