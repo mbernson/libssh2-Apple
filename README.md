@@ -54,5 +54,8 @@ The asset URL is derived from the tag, so the manifest committed in step 3 is al
 scripts/download-source.sh 1.11.1 build
 scripts/download-openssl.sh 4.0.3 build/openssl
 scripts/build-slice.sh build/libssh2-1.11.1.tar.gz macos build/openssl/OpenSSL.xcframework slices/macos
+scripts/build-slice.sh build/libssh2-1.11.1.tar.gz ios build/openssl/OpenSSL.xcframework slices/ios
+scripts/build-slice.sh build/libssh2-1.11.1.tar.gz iossimulator build/openssl/OpenSSL.xcframework slices/iossimulator
 scripts/create-xcframework.sh slices path/to/COPYING libssh2.xcframework
+scripts/verify-release.sh 1.11.1 4.0.3
 ```
