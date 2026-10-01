@@ -62,8 +62,8 @@ cmake -S "$SOURCE_DIR" -B "$BUILD_DIR" -G "Unix Makefiles" \
 	-DBUILD_TESTING=OFF \
 	-DCRYPTO_BACKEND=OpenSSL \
 	-DOPENSSL_INCLUDE_DIR="$openssl_slice/Headers" \
-	-DOPENSSL_CRYPTO_LIBRARY="$openssl_slice/openssl.a" \
-	-DOPENSSL_SSL_LIBRARY="$openssl_slice/openssl.a" \
+	-DOPENSSL_CRYPTO_LIBRARY="$openssl_slice/libopenssl.a" \
+	-DOPENSSL_SSL_LIBRARY="$openssl_slice/libopenssl.a" \
 	"${cmake_platform_args[@]}"
 cmake --build "$BUILD_DIR" --parallel "$(sysctl -n hw.ncpu)"
 
